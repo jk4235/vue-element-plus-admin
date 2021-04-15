@@ -1,5 +1,5 @@
 <template>
-  <h1>{{ msg }}</h1>
+  <h1 @click="emit('click')">{{ msg }}</h1>
 
   <p>
     Recommended IDE setup:
@@ -27,28 +27,21 @@
     <a href="https://v3.vuejs.org/" target="_blank">Vue 3 Docs</a>
   </p>
 
-  <el-button @click="count++">count is: {{ count }}</el-button>
+  <el-button @click="inc">count is: {{ count }}</el-button>
   <p>
     Edit
     <code>components/HelloWorld.vue</code> to test hot module replacement.
   </p>
 </template>
 
-<script lang="ts">
-import { ref, defineComponent } from 'vue'
-export default defineComponent({
-  name: 'HelloWorld',
-  props: {
-    msg: {
-      type: String,
-      required: true
-    }
-  },
-  setup: () => {
-    const count = ref(0)
-    return { count }
-  }
+<script lang="ts" setup>
+import { defineProps, defineEmit } from 'vue'
+const props = defineProps({
+  msg: { type: String, required: true }
 })
+const emit = defineEmit(['click'])
+ref: count = 0
+const inc = () => count++
 </script>
 
 <style scoped>

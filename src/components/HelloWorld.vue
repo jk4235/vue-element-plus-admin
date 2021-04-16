@@ -20,14 +20,17 @@
   <p>See <code>README.md</code> for more information.</p>
 
   <p>
-    <a href="https://vitejs.dev/guide/features.html" target="_blank"
-      >Vite Docs</a
-    >
+    <a href="https://vitejs.dev/guide/features.html" target="_blank">
+      Vite Docs
+    </a>
     |
     <a href="https://v3.vuejs.org/" target="_blank">Vue 3 Docs</a>
   </p>
 
-  <el-button @click="inc">count is: {{ count }}</el-button>
+  <p>count is: {{ count }}</p>
+
+  <el-button @click="inc">increment</el-button>
+  <el-button @click="dec">decrement</el-button>
   <p>
     Edit
     <code>components/HelloWorld.vue</code> to test hot module replacement.
@@ -35,13 +38,21 @@
 </template>
 
 <script lang="ts" setup>
-import { defineProps, defineEmit } from 'vue'
+import { useStore } from '@/store'
+import { defineProps, defineEmit, computed } from 'vue'
+
 const props = defineProps({
   msg: { type: String, required: true }
 })
+
 const emit = defineEmit(['click'])
-ref: count = 0
-const inc = () => count++
+
+const store = useStore()
+
+ref: count = computed(() => store.state.count)
+
+const inc = () => store.dispatch('increment', 1)
+const dec = () => store.dispatch('decrement', 1)
 </script>
 
 <style scoped>
